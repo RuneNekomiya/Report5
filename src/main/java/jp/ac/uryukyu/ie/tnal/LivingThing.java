@@ -1,22 +1,18 @@
 package jp.ac.uryukyu.ie.tnal;
 
 /**
- * キャラクタークラス。各種ステータスや行動判定を導入。
- * String name;    //本キャラクターの名前
- * int hitPoint;   //HP
- * int attack;     //攻撃力
- * boolean dead;   //生死状態(true=死亡)
- * Created by tnal on 2016/11/13. 借り物の改造品です。
+ * キャラクタークラス。各種ステータスや行動判定を導入
+ * Created by tnal on 2016/11/13. 借り物の改造品です
  */
 public class LivingThing {
 
-    private String name;
-    private int hitPoint;
-    private int attack;
-    private boolean dead;
+    private String name;    //本キャラクターの名前
+    private int hitPoint;   //HP
+    private int attack;     //攻撃力
+    private boolean dead;   //生死状態(true=死亡)
 
     /**
-     * コンストラクタ。名前、最大HP、攻撃力を指定する。
+     * コンストラクタ。名前、最大HP、攻撃力を指定する
      *
      * @param name      名前
      * @param maximumHP HP
@@ -31,37 +27,29 @@ public class LivingThing {
     }
 
     /**
-     * getter and setter. ゲートの内容は特に無い。
-     * isDead()はgetterメソッドと同等。生死をboolean表現しているためメソッド名をisDead()とした。
+     * getter and setter. ゲートの内容は特に無い
+     * isDead()はgetterメソッドと同等。生死をboolean表現しているためメソッド名をisDead()とした
      */
     public String getName() {
         return name;
     }
-
-    public int getHitPoint() {
-        return hitPoint;
-    }
-
+    public int getHitPoint() { return hitPoint; }
     public void setHitPoint(int hitPoint) {
         this.hitPoint = hitPoint;
     }
-
-    public boolean isDead() {
-        return dead;
-    }
-
+    public boolean isDead() { return dead; }
     public void setDead(boolean dead) {
         this.dead = dead;
     }
 
     /**
-     * 敵へ攻撃するメソッド。神敵に無慈悲な刃を翳すことは宗主が命によって正当化されます。
-     * attack*(0~100%)の乱数ダメージを算出し、opponent.wounded()によりダメージ処理を実行。
+     * 敵へ攻撃するメソッド。神敵に無慈悲な刃を翳すことは宗主が命によって正当化されます
+     * attack*(0~100%)の乱数ダメージを算出し、opponent.wounded()によりダメージ処理を実行
      *
      * @param opponent 敵のクラス
      */
     public void attack(LivingThing opponent) {
-        if (!dead) { //「死んでいる奴が動く訳はないよなぁ？」攻撃する者が生きていたら攻撃を実行します。
+        if (!dead) { //死者は動かず
             int damage = (int) (Math.random() * attack);
             System.out.printf("%sの攻撃！%sに%dのダメージを与えた！！\n", name, opponent.getName(), damage);
             opponent.wounded(damage);
@@ -69,9 +57,10 @@ public class LivingThing {
     }
 
     /**
-     * 自身へ攻撃されたときのダメージ処理をするメソッド。
-     * 指定されたダメージを hitPoint から引き、死亡判定を行う。
-     * 但し、本クラスは死亡時メッセージが汎用的ーー簡素ーーなため、使われないことが望まれます。
+     * 自身へ攻撃されたときのダメージ処理をするメソッド
+     * 指定されたダメージを hitPoint から引き、死亡判定を行う
+     * 但し、本クラスは死亡時メッセージが汎用的であり、オーバーライド前提のメソッドです(そういう仕様です、諦めましょう)
+     * 機能的には使用可能ですが、使われないことが望まれます
      *
      * @param damage 受けたダメージ
      */
